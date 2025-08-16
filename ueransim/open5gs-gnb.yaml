@@ -1,0 +1,20 @@
+mcc: '901'          # must match AMF and subscriber DB
+mnc: '70'
+
+nci: '0x000000010'
+idLength: 32
+tac: 1
+
+linkIp: 127.0.0.1
+ngapIp: 127.0.0.1
+gtpIp: 127.0.0.1
+
+amfConfigs:
+  - address: 127.0.0.5
+    port: 38412
+
+slices:
+  - sst: 1
+    sd: 010203   # match MongoDB subscriber
+
+ignoreStreamIds: true
