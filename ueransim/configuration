@@ -1,0 +1,6 @@
+i got : 
+achraf@achraf-VirtualBox:~/UERANSIM/config$ ls 
+custom-gnb.yaml custom-ue.yaml free5gc-gnb.yaml free5gc-ue.yaml open5gs-gnb.yaml open5gs-ue.yaml 
+
+i need to modify open5gs-gnb.yaml open5gs-ue.yaml & add ue2.yaml
+
