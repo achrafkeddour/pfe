@@ -1,0 +1,13 @@
+sudo apt update
+sudo apt install -y git make g++ libsctp-dev lksctp-tools iproute2 \
+                    build-essential cmake
+
+cd ~
+git clone https://github.com/aligungr/UERANSIM.git
+cd UERANSIM
+make
+
+
+👉 After compilation, binaries will appear in build/:
+nr-gnb → gNodeB
+nr-ue → UE
