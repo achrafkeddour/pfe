@@ -18,3 +18,13 @@ sudo apt update
 sudo apt install open5gs
 
 
+nano subscribers.js
+// put the content of this file
+
+//executing the script in the database
+mongosh open5gs subscribers.js
+
+//To check that the subscribers were inserted:
+mongosh open5gs
+db.subscribers.find().pretty()
+
