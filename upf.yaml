@@ -1,0 +1,35 @@
+logger:
+  file:
+    path: /var/log/open5gs/upf.log
+#  level: info   # fatal|error|warn|info(default)|debug|trace
+
+global:
+  max:
+    ue: 1024
+
+upf:
+  pfcp:
+    server:
+      - address: 127.0.0.7
+    client:
+#      smf:
+#        - address: 127.0.0.4
+
+  gtpu:
+    server:
+      - address: 127.0.0.7
+
+  session:
+    - dnn: internet        # must match SMF and UE config
+      type: ipv4
+      subnet: 10.45.0.0/16
+      gateway: 10.45.0.1
+    - dnn: internet
+      type: ipv6
+      subnet: 2001:db8:cafe::/48
+      gateway: 2001:db8:cafe::1
+
+  metrics:
+    server:
+      - address: 127.0.0.7
+        port: 9090
