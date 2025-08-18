@@ -1,50 +1,84 @@
-supi: 'imsi-901700000000002'   # IMSI from MongoDB
+# IMSI number of the UE. IMSI = [MCC|MNC|MSISDN] (15 digits total)
+supi: 'imsi-901700000000002'
+
+# Mobile Country Code of HPLMN
 mcc: '901'
+# Mobile Network Code of HPLMN (2 or 3 digits)
 mnc: '70'
 
+# SUCI Protection (0 = Null-scheme)
 protectionScheme: 0
+homeNetworkPublicKey: '0000000000000000000000000000000000000000000000000000000000000000'
+homeNetworkPublicKeyId: 0
 routingIndicator: '0000'
 
-# Security parameters (must match DB)
-key: '465B5CE8B199B49FAA5F0A2EE238A6BD'
-op: 'E8ED289DEBA952E4283B54E88E6183CB'
+# Permanent subscription key
+key: '00112233445566778899AABBCCDDEEFF'
+# Operator code (use OP or OPC value depending on opType)
+op: '63BFA50EE6523365FF14C1F45F88737D'
 opType: 'OPC'
+
+# Authentication Management Field (must be 8000 for 5G)
 amf: '8000'
 
-# Device info (any valid IMEI)
+# IMEI/IMEISV (optional – can leave dummy values)
 imei: '356938035643804'
 imeiSv: '4370816125816152'
 
+# Network mask for UE TUN interface
 tunNetmask: '255.255.255.0'
 
+# List of gNB IP addresses
 gnbSearchList:
   - 127.0.0.1
 
+# UAC Access Identities Configuration
+uacAic:
+  mps: false
+  mcs: false
+
+# UAC Access Control Class
+uacAcc:
+  normalClass: 0
+  class11: false
+  class12: false
+  class13: false
+  class14: false
+  class15: false
+
+# Initial PDU sessions
 sessions:
   - type: 'IPv4'
     apn: 'internet'
     slice:
       sst: 1
-      sd: 010203
+#  - type: 'IPv6'
+#    apn: 'internet'
+#    slice:
+#      sst: 1
 
+# Configured NSSAI
 configured-nssai:
   - sst: 1
-    sd: 010203
 
+# Default Configured NSSAI
 default-nssai:
   - sst: 1
-    sd: 010203
 
+# Supported integrity algorithms
 integrity:
   IA1: true
   IA2: true
   IA3: true
 
+# Supported encryption algorithms
 ciphering:
   EA1: true
   EA2: true
   EA3: true
 
+# Integrity protection max data rate
 integrityMaxRate:
   uplink: 'full'
   downlink: 'full'
+
