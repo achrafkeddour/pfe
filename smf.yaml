@@ -63,3 +63,4 @@ smf:
 #    enabled: auto   # auto(default)|yes|no
 
   freeDiameter: /etc/freeDiameter/smf.conf
+
