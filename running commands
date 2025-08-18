@@ -1,0 +1,5 @@
+~/UERANSIM$ sudo ./build/nr-gnb -c config/open5gs-gnb.yaml 
+
+/UERANSIM$ sudo ./build/nr-ue -c config/ue.yaml 
+
+~/UERANSIM$ sudo ./build/nr-ue -c config/ue2.yaml 
