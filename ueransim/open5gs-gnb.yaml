@@ -1,6 +1,5 @@
-mcc: '901'          # must match AMF and subscriber DB
-mnc: '70'
-
+mcc: 901
+mnc: 70
 nci: '0x000000010'
 idLength: 32
 tac: 1
@@ -9,12 +8,16 @@ linkIp: 127.0.0.1
 ngapIp: 127.0.0.1
 gtpIp: 127.0.0.1
 
+# List of AMF addresses for gNB to connect
 amfConfigs:
   - address: 127.0.0.5
     port: 38412
 
+# List of supported S-NSSAIs by this gNB
 slices:
   - sst: 1
-    sd: 010203   # match MongoDB subscriber
+#    sd: 010203
 
 ignoreStreamIds: true
+
+
