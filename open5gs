@@ -28,6 +28,8 @@ mongosh open5gs subscribers.js
 mongosh open5gs
 db.subscribers.find().pretty()
 
+sudo systemctl restart mongod
+
 
 
 //modify three files 
@@ -39,4 +41,5 @@ sudo systemctl status open5gs-* //status of all services of open5gs
 sudo systemctl restart open5gs-*
 sudo systemctl status open5gs-*
 //everything is working after modifying the three files
+
 
