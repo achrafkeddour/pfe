@@ -16,6 +16,8 @@ cd open5gs/docker
 ### 2️⃣ Construire les images Docker
 
 ```bash
+sudo apt install docker.io docker-compose -y
+
 docker-compose build
 ```
 
