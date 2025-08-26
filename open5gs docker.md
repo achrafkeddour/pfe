@@ -17,6 +17,8 @@ cd open5gs/docker
 
 ```bash
 sudo apt install docker.io docker-compose -y
+sudo usermod -aG docker $USER
+newgrp docker
 
 docker-compose build
 ```
