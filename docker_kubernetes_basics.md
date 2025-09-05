@@ -25,7 +25,7 @@ minikube start --driver=docker
 kubectl get nodes
 
 
-
+```
 # put the content of new files (inside k8s)
 
 microservices-demo/
@@ -46,7 +46,7 @@ microservices-demo/
         ├── deployment.yaml
         └── service.yaml
 
-
+```
 
 # Build & Load Images into Minikube 
 
