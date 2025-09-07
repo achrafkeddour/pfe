@@ -133,3 +133,6 @@ ps -ef | grep open5gs
 
 ---
 
+* if i lost everything : i do **docker ps -a** , to see all dockers that i had before and restart them by : 
+``` docker start container_name1 container_name2 ```
+
