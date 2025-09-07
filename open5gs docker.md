@@ -95,6 +95,7 @@ open5gs-amfd  open5gs-smfd  open5gs-upfd ...
 ---
 
 ### 8️⃣ Lancer le Core 5G (toutes les Network Functions)
+- dans le chemin ```cd install/etc/open5gs/```
 - entrer dans les fichiers : amf.yaml , smf.yaml , upf.yaml , udm.yaml , ausf.yaml , pcf.yaml , nssf.yaml , bsf.yaml
 - et **commenter les deux lignes de scp** ,puis **uncommenter les deux lignes de nrf**
 
