@@ -100,7 +100,12 @@ open5gs-amfd  open5gs-smfd  open5gs-upfd ...
 - et **commenter les deux lignes de scp** ,puis **uncommenter les deux lignes de nrf**
 
 - utiliser **db_uri: mongodb://mongodb/open5gs** (je sais pas est ce que vraiment mongodb remplace localhost ou non) au lieu de **db_uri: mongodb://localhost/open5gs** dans les fichiers suivantes :
-  (may be zid dir **docker-compose restart run** - im not sure about it)
+- hss.yaml → HSS (for 4G)
+- udr.yaml → UDR (for 5G)
+- pcf.yaml → PCF (uses subscriber data)
+- nrf.yaml → NRF (stores NF registry in DB)
+- bsf.yaml → BSF (uses DB for subscriber bindings)
+- (may be zid dir **docker-compose restart run** - im not sure about it)
   
 Toujours dans le conteneur :
 
