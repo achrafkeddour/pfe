@@ -73,6 +73,7 @@ docker exec -it <ID_DU_CONTENEUR_RUN> /bin/bash
 ```bash
 cd /open5gs
 meson build --prefix=`pwd`/install
+# generally, here i got : Directory already configured.
 ninja -C build
 ninja -C build install
 ```
