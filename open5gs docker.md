@@ -95,7 +95,12 @@ open5gs-amfd  open5gs-smfd  open5gs-upfd ...
 ---
 
 ### 8️⃣ Lancer le Core 5G (toutes les Network Functions)
+- entrer dans les fichiers : amf.yaml , smf.yaml , upf.yaml , udm.yaml , ausf.yaml , pcf.yaml , nssf.yaml , bsf.yaml
+- et **commenter les deux lignes de scp** ,puis **uncommenter les deux lignes de nrf**
 
+- utiliser **db_uri: mongodb://mongodb/open5gs** (je sais pas est ce que vraiment mongodb remplace localhost ou non) au lieu de **db_uri: mongodb://localhost/open5gs** dans les fichiers suivantes :
+  (may be zid dir **docker-compose restart run** - im not sure about it)
+  
 Toujours dans le conteneur :
 
 ```bash
@@ -128,4 +133,3 @@ ps -ef | grep open5gs
 
 ---
 
-👉 Veux-tu que je te prépare un **script automatique** pour lancer toutes les NFs d’un seul coup (plutôt que de taper les 9 commandes à chaque fois) ?
