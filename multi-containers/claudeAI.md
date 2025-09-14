@@ -34,7 +34,7 @@ Créez ces 4 fichiers dans `~/open5gs-multicontainer/` :
 3. **`setup_configs.sh`** (utilisez le fichier de l'artifact 3)
 4. **`deploy.sh`** (utilisez le fichier de l'artifact 4)
 
-### **5️⃣ Script d'installation complète pour VM2**
+### **5️⃣ Script d'installation complète pour VM2 ( install_direct.sh )**
 
 ```bash
 #!/bin/bash
@@ -177,7 +177,68 @@ echo "   Login: admin / Password: 1423"
 
 ### **6️⃣ Commande complète pour VM2**
 
-Voici un script tout-en-un pour configurer VM2 depuis zéro :## 📋 **Résumé des étapes pour VM2 :**
+Voici un script tout-en-un pour configurer VM2 depuis zéro :
+```bash
+#!/bin/bash
+
+# Script complet pour VM2 - Installation directe multi-conteneurs
+set -e
+
+echo "======================================"
+echo "🚀 Setup VM2 - Open5GS Multi-Conteneurs"
+echo "======================================"
+
+# 1. Installation des prérequis
+echo "📦 Installation de Docker et Docker Compose..."
+sudo apt update
+sudo apt install -y docker.io docker-compose git curl wget
+sudo usermod -aG docker $USER
+echo "⚠️ Note: Vous devrez peut-être vous reconnecter pour que les permissions Docker prennent effet"
+
+# 2. Cloner Open5GS pour récupérer WebUI
+echo "📥 Clonage d'Open5GS..."
+cd ~
+git clone https://github.com/open5gs/open5gs
+echo "✅ Code source récupéré"
+
+# 3. Créer la structure du projet
+echo "📁 Création de la structure du projet..."
+mkdir -p ~/open5gs-multicontainer
+cd ~/open5gs-multicontainer
+
+# 4. Copier WebUI
+echo "📋 Copie de WebUI..."
+cp -r ~/open5gs/webui ./
+
+# 5. Créer tous les fichiers nécessaires
+echo "📝 Création des fichiers de configuration..."
+
+# Créer docker-compose.yml (insérer le contenu complet ici)
+# Créer Dockerfile.ubuntu (insérer le contenu complet ici)
+# Créer setup_configs.sh (insérer le contenu complet ici)
+# Créer deploy.sh (insérer le contenu complet ici)
+
+echo "✅ Fichiers créés"
+
+# 6. Lancer l'installation
+echo "🚀 Lancement de l'installation..."
+chmod +x *.sh
+./install_direct.sh
+
+echo ""
+echo "======================================"
+echo "✅ VM2 configurée avec succès!"
+echo "======================================"
+echo ""
+echo "🎯 Pour utiliser Docker sans sudo:"
+echo "   newgrp docker"
+echo "   OU déconnectez-vous et reconnectez-vous"
+echo ""
+echo "📍 Répertoire de travail: ~/open5gs-multicontainer"
+echo "🌐 WebUI accessible sur: http://localhost:9999"
+```
+
+## 📋 **Résumé des étapes pour VM2 :**
 
 ### **Installation rapide (commandes à exécuter) :**
 
