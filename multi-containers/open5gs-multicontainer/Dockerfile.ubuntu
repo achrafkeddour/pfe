@@ -1,0 +1,56 @@
+# Dockerfile.ubuntu
+FROM ubuntu:22.04
+
+# Éviter les prompts interactifs
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Installer les dépendances
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-setuptools \
+    python3-wheel \
+    ninja-build \
+    build-essential \
+    flex \
+    bison \
+    git \
+    cmake \
+    libsctp-dev \
+    libgnutls28-dev \
+    libgcrypt20-dev \
+    libssl-dev \
+    libidn11-dev \
+    libmongoc-dev \
+    libbson-dev \
+    libyaml-dev \
+    libnghttp2-dev \
+    libmicrohttpd-dev \
+    libcurl4-gnutls-dev \
+    libnghttp2-dev \
+    libtins-dev \
+    libtalloc-dev \
+    meson \
+    iproute2 \
+    ca-certificates \
+    netbase \
+    iputils-ping \
+    net-tools \
+    && rm -rf /var/lib/apt/lists/*
+
+# Cloner et compiler Open5GS
+WORKDIR /
+RUN git clone https://github.com/open5gs/open5gs.git
+
+WORKDIR /open5gs
+RUN meson build --prefix=/open5gs/install && \
+    ninja -C build && \
+    ninja -C build install
+
+# Créer les répertoires nécessaires
+RUN mkdir -p /open5gs/install/var/log/open5gs
+
+# Exposer le répertoire de configuration
+VOLUME ["/open5gs/install/etc/open5gs"]
+
+# Working directory par défaut
+WORKDIR /open5gs/install
