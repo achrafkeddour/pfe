@@ -1,0 +1,241 @@
+version: '3.8'
+
+services:
+  # MongoDB
+  mongodb:
+    image: mongo:4.4
+    container_name: open5gs-mongodb
+    restart: always
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.2
+
+  # WebUI
+  webui:
+    build: ./webui
+    image: open5gs-webui
+    container_name: open5gs-webui
+    restart: always
+    depends_on:
+      - mongodb
+    environment:
+      - DB_URI=mongodb://mongodb:27017/open5gs
+      - NODE_ENV=production
+    ports:
+      - "9999:3000"
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.3
+
+  # NRF (Network Repository Function)
+  nrf:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    image: open5gs-nrf
+    container_name: open5gs-nrf
+    restart: always
+    command: /open5gs/install/bin/open5gs-nrfd
+    volumes:
+      - ./config/nrf.yaml:/open5gs/install/etc/open5gs/nrf.yaml
+    depends_on:
+      - mongodb
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.10
+
+  # AMF (Access and Mobility Management Function)
+  amf:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    image: open5gs-amf
+    container_name: open5gs-amf
+    restart: always
+    command: /open5gs/install/bin/open5gs-amfd
+    volumes:
+      - ./config/amf.yaml:/open5gs/install/etc/open5gs/amf.yaml
+    depends_on:
+      - nrf
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.11
+    ports:
+      - "38412:38412/sctp"
+
+  # SMF (Session Management Function)
+  smf:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    image: open5gs-smf
+    container_name: open5gs-smf
+    restart: always
+    command: /open5gs/install/bin/open5gs-smfd
+    volumes:
+      - ./config/smf.yaml:/open5gs/install/etc/open5gs/smf.yaml
+    depends_on:
+      - nrf
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.12
+
+  # UPF (User Plane Function)
+  upf:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    image: open5gs-upf
+    container_name: open5gs-upf
+    restart: always
+    privileged: true
+    command: /open5gs/install/bin/open5gs-upfd
+    volumes:
+      - ./config/upf.yaml:/open5gs/install/etc/open5gs/upf.yaml
+    depends_on:
+      - smf
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    sysctls:
+      - net.ipv4.ip_forward=1
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.13
+
+  # AUSF (Authentication Server Function)
+  ausf:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    image: open5gs-ausf
+    container_name: open5gs-ausf
+    restart: always
+    command: /open5gs/install/bin/open5gs-ausfd
+    volumes:
+      - ./config/ausf.yaml:/open5gs/install/etc/open5gs/ausf.yaml
+    depends_on:
+      - nrf
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.14
+
+  # UDM (Unified Data Management)
+  udm:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    image: open5gs-udm
+    container_name: open5gs-udm
+    restart: always
+    command: /open5gs/install/bin/open5gs-udmd
+    volumes:
+      - ./config/udm.yaml:/open5gs/install/etc/open5gs/udm.yaml
+    depends_on:
+      - nrf
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.15
+
+  # UDR (Unified Data Repository)
+  udr:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    image: open5gs-udr
+    container_name: open5gs-udr
+    restart: always
+    command: /open5gs/install/bin/open5gs-udrd
+    volumes:
+      - ./config/udr.yaml:/open5gs/install/etc/open5gs/udr.yaml
+    depends_on:
+      - mongodb
+      - nrf
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.16
+
+  # PCF (Policy Control Function)
+  pcf:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    image: open5gs-pcf
+    container_name: open5gs-pcf
+    restart: always
+    command: /open5gs/install/bin/open5gs-pcfd
+    volumes:
+      - ./config/pcf.yaml:/open5gs/install/etc/open5gs/pcf.yaml
+    depends_on:
+      - mongodb
+      - nrf
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.17
+
+  # NSSF (Network Slice Selection Function)
+  nssf:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    image: open5gs-nssf
+    container_name: open5gs-nssf
+    restart: always
+    command: /open5gs/install/bin/open5gs-nssfd
+    volumes:
+      - ./config/nssf.yaml:/open5gs/install/etc/open5gs/nssf.yaml
+    depends_on:
+      - nrf
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.18
+
+  # BSF (Binding Support Function)
+  bsf:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    image: open5gs-bsf
+    container_name: open5gs-bsf
+    restart: always
+    command: /open5gs/install/bin/open5gs-bsfd
+    volumes:
+      - ./config/bsf.yaml:/open5gs/install/etc/open5gs/bsf.yaml
+    depends_on:
+      - mongodb
+      - nrf
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.19
+
+  # HSS (Home Subscriber Server) - pour la compatibilité 4G
+  hss:
+    build: 
+      context: .
+      dockerfile: Dockerfile.ubuntu
+    image: open5gs-hss
+    container_name: open5gs-hss
+    restart: always
+    command: /open5gs-hssd
+    volumes:
+      - ./config/hss.yaml:/open5gs/install/etc/open5gs/hss.yaml
+    depends_on:
+      - mongodb
+    networks:
+      open5gs_net:
+        ipv4_address: 10.45.0.20
+
+networks:
+  open5gs_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.45.0.0/16
+
+volumes:
+  mongodb_data:
