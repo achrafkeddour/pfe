@@ -51,3 +51,18 @@ user@user-VirtualBox:~/open5gs/install/etc/open5gs$
 Les fichiers 5G dans la liste sont :
 `amf.yaml, ausf.yaml, nrf.yaml, nssf.yaml, pcf.yaml, udm.yaml, udr.yaml, smf.yaml, upf.yaml, scp.yaml, sepp1.yaml, sepp2.yaml`.
 
+
+| Fichier / Dossier           | Fonction réseau                                  | 4G/5G | Rôle principal                                                                       |
+| --------------------------- | ------------------------------------------------ | ----- | ------------------------------------------------------------------------------------ |
+| **amf.yaml**                | AMF – Access and Mobility Management Function    | 5G    | Gère la signalisation UE ↔ 5GC (authentification initiale, enregistrement, mobilité) |
+| **ausf.yaml**               | AUSF – Authentication Server Function            | 5G    | Authentifie les abonnés 5G avec l’UDM                                                |
+| **nrf.yaml**                | NRF – Network Repository Function                | 5G    | Découverte et enregistrement des fonctions réseau 5G                                 |
+| **nssf.yaml**               | NSSF – Network Slice Selection Function          | 5G    | Sélectionne le slice approprié pour chaque UE                                        |
+| **pcf.yaml**                | PCF – Policy Control Function                    | 5G    | Gestion des politiques (QoS, règles)                                                 |
+| **udm.yaml**                | UDM – Unified Data Management                    | 5G    | Gestion des données des abonnés (remplace le HSS côté 5G)                            |
+| **udr.yaml**                | UDR – Unified Data Repository                    | 5G    | Base de données pour UDM, PCF, etc.                                                  |
+| **smf.yaml**                | SMF – Session Management Function                | 5G    | Gère les sessions PDU et attribue les adresses IP                                    |
+| **upf.yaml**                | UPF – User Plane Function                        | 5G    | Plan utilisateur (transfert des paquets)                                             |
+| **scp.yaml**                | SCP – Service Communication Proxy (optionnel 5G) | 5G    | Proxy entre fonctions réseau                                                         |
+| **sepp1.yaml / sepp2.yaml** | SEPP – Security Edge Protection Proxy            | 5G    | Sécurise l’interconnexion entre PLMNs                                                |
+
