@@ -67,4 +67,42 @@ Les fichiers 5G dans la liste sont :
 | **sepp1.yaml / sepp2.yaml** | SEPP – Security Edge Protection Proxy            | 5G    | Sécurise l’interconnexion entre PLMNs                                  
 | **bsf.yaml** | **BSF – Binding Support Function** | Il stocke et fournit les informations de liaison (binding) entre les services et les abonnés. Il aide notamment le PCF et les fonctions réseau à retrouver rapidement où se trouve l’abonné ou sa session PDU. |
 
+**il y a 13 fichiers (9 parmis eux essentiels pour nous -tous sauf scp sepp1 sepp2 bsf-)**
+
+### configurer les fichiers, fait des modifications ,par exemple : commenter scp , et uncommenter nrf (dans les 13 fichiers) , verifier les addresses IP , verifier les parametres de mongodb (son lien..etc)
+
+----------------------------------------
+
+```bash
+#!/bin/bash
+# ~/open5gs/install/run_5g.sh
+# Lancer les services 5G Core Open5GS (sans SCP)
+
+# Démarrer NRF (toujours en premier)
+~/open5gs/install/bin/open5gs-nrfd -c ~/open5gs/install/etc/open5gs/nrf.yaml &
+
+# Démarrer NSSF (après NRF, avant AMF)
+~/open5gs/install/bin/open5gs-nssfd -c ~/open5gs/install/etc/open5gs/nssf.yaml &
+
+# Démarrer AMF
+~/open5gs/install/bin/open5gs-amfd -c ~/open5gs/install/etc/open5gs/amf.yaml &
+
+# Démarrer AUSF
+~/open5gs/install/bin/open5gs-ausfd -c ~/open5gs/install/etc/open5gs/ausf.yaml &
+
+# Démarrer UDM
+~/open5gs/install/bin/open5gs-udmd -c ~/open5gs/install/etc/open5gs/udm.yaml &
+
+# Démarrer UDR
+~/open5gs/install/bin/open5gs-udrd -c ~/open5gs/install/etc/open5gs/udr.yaml &
+
+# Démarrer PCF
+~/open5gs/install/bin/open5gs-pcfd -c ~/open5gs/install/etc/open5gs/pcf.yaml &
+
+# Démarrer SMF
+~/open5gs/install/bin/open5gs-smfd -c ~/open5gs/install/etc/open5gs/smf.yaml &
+
+# Démarrer UPF
+~/open5gs/install/bin/open5gs-upfd -c ~/open5gs/install/etc/open5gs/upf.yaml &
+```
 
