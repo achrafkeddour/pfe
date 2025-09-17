@@ -35,3 +35,10 @@ https://repo.mongodb.org/apt/ubuntu $(lsb_release -sc)/mongodb-org/7.0 multivers
 ```
 
 
+## 5. configuration de 5GC
+- utilise les deux chemins
+- 1. ```cd open5gs/install/bin```
+  2. ```cd open5gs/install/etc``` 
+
+
+
