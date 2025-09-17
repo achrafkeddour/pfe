@@ -72,6 +72,7 @@ Les fichiers 5G dans la liste sont :
 ### configurer les fichiers, fait des modifications ,par exemple : commenter scp , et uncommenter nrf (dans les 13 fichiers) , verifier les addresses IP , verifier les parametres de mongodb (son lien..etc)
 
 ----------------------------------------
+## 6. Aprés la configuration des fichiers , je lance les services 
 
 ```bash
 #!/bin/bash
@@ -106,3 +107,7 @@ Les fichiers 5G dans la liste sont :
 ~/open5gs/install/bin/open5gs-upfd -c ~/open5gs/install/etc/open5gs/upf.yaml &
 ```
 
+# stop running les services
+```bash
+pkill -9 -f open5gs-
+```
