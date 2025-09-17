@@ -36,9 +36,18 @@ https://repo.mongodb.org/apt/ubuntu $(lsb_release -sc)/mongodb-org/7.0 multivers
 
 
 ## 5. configuration de 5GC
-- utilise les deux chemins
-- 1. ```cd open5gs/install/bin```
-  2. ```cd open5gs/install/etc``` 
+- utilise les deux chemins :
+  1. ```cd open5gs/install/bin```
+  2. ```cd open5gs/install/etc``` (**ici on trouve les fichiers de configuration**)
 
+```bash
+~/open5gs/install/etc/open5gs$ ls
+amf.yaml   bsf.yaml  hss.yaml  nrf.yaml   pcf.yaml   scp.yaml    sepp2.yaml  sgwu.yaml  tls       udr.yaml
+ausf.yaml  hnet      mme.yaml  nssf.yaml  pcrf.yaml  sepp1.yaml  sgwc.yaml   smf.yaml   udm.yaml  upf.yaml
+user@user-VirtualBox:~/open5gs/install/etc/open5gs$ 
+```
 
+### parlons sur les fichiers de configuration : 
+Les fichiers 5G dans la liste sont :
+`amf.yaml, ausf.yaml, nrf.yaml, nssf.yaml, pcf.yaml, udm.yaml, udr.yaml, smf.yaml, upf.yaml, scp.yaml, sepp1.yaml, sepp2.yaml`.
 
