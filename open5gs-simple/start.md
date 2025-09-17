@@ -49,7 +49,7 @@ user@user-VirtualBox:~/open5gs/install/etc/open5gs$
 
 ### parlons sur les fichiers de configuration : 
 Les fichiers 5G dans la liste sont :
-`amf.yaml, ausf.yaml, nrf.yaml, nssf.yaml, pcf.yaml, udm.yaml, udr.yaml, smf.yaml, upf.yaml, scp.yaml, sepp1.yaml, sepp2.yaml`.
+`amf.yaml, ausf.yaml, nrf.yaml, nssf.yaml, pcf.yaml, udm.yaml, udr.yaml, smf.yaml, upf.yaml, scp.yaml, sepp1.yaml, sepp2.yaml, bsf.yaml`.
 
 
 | Fichier / Dossier           | Fonction réseau                                  | 4G/5G | Rôle principal                                                                       |
@@ -65,4 +65,9 @@ Les fichiers 5G dans la liste sont :
 | **upf.yaml**                | UPF – User Plane Function                        | 5G    | Plan utilisateur (transfert des paquets)                                             |
 | **scp.yaml**                | SCP – Service Communication Proxy (optionnel 5G) | 5G    | Proxy entre fonctions réseau                                                         |
 | **sepp1.yaml / sepp2.yaml** | SEPP – Security Edge Protection Proxy            | 5G    | Sécurise l’interconnexion entre PLMNs                                                |
+
+| Fichier      | Fonction réseau                    | Rôle                                                                                                                                                                                                           |
+| ------------ | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **bsf.yaml** | **BSF – Binding Support Function** | Il stocke et fournit les informations de liaison (binding) entre les services et les abonnés. Il aide notamment le PCF et les fonctions réseau à retrouver rapidement où se trouve l’abonné ou sa session PDU. |
+
 
