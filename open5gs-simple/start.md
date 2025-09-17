@@ -12,3 +12,16 @@ cd ~
 git clone https://github.com/open5gs/open5gs
 cd open5gs
 ```
+
+## 3. Compiler
+```bash
+meson build --prefix=`pwd`/install
+ninja -C build
+ninja -C build install
+# À ce stade, tes binaires et configs sont dans ~/open5gs/install.
+```
+
+## 4. 
+
+
+
