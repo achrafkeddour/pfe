@@ -107,6 +107,11 @@ Les fichiers 5G dans la liste sont :
 ~/open5gs/install/bin/open5gs-upfd -c ~/open5gs/install/etc/open5gs/upf.yaml &
 ```
 
+### some error ? (UPF is not working, because it needs sudo access) , in another terminal 
+```bash
+user@user-VirtualBox:~/open5gs/install$ sudo ~/open5gs/install/bin/open5gs-upfd -c ~/open5gs/install/etc/open5gs/upf.yaml 
+```
+ 
 # stop running les services
 ```bash
 pkill -9 -f open5gs-
