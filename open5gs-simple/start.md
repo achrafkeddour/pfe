@@ -111,6 +111,8 @@ Les fichiers 5G dans la liste sont :
 ```bash
 user@user-VirtualBox:~/open5gs/install$ sudo ~/open5gs/install/bin/open5gs-upfd -c ~/open5gs/install/etc/open5gs/upf.yaml 
 ```
+
+As a result of (```ip a``` in a third terminal) , you must find a new interface **ogstun** existing but is **DOWN and has no IP address**, so the **UPF cannot pass** user traffic yet
  
 # stop running les services
 ```bash
