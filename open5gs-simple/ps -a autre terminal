@@ -1,0 +1,18 @@
+résultat de cette commande : 
+
+
+4567 ?    00:00:00 open5gs-nrfd
+4570 ?    00:00:00 open5gs-nssfd
+4573 ?    00:00:00 open5gs-amfd
+4576 ?    00:00:00 open5gs-ausfd
+4579 ?    00:00:00 open5gs-udmd
+4582 ?    00:00:00 open5gs-udrd
+4585 ?    00:00:00 open5gs-pcfd
+4588 ?    00:00:00 open5gs-smfd
+4591 ?    00:00:00 open5gs-upfd
+
+
+Tes open5gs-xxxxd sont: 
+- des processus Linux 
+- qui implémentent chacun un service réseau 5G Core, 
+- et qui correspondent à des microservices (Network Functions) dans l’architecture 5G.
