@@ -16,5 +16,6 @@ open5gs/
 │   ├── Dockerfile.pcf
 │   ├── Dockerfile.smf
 │   └── Dockerfile.upf
-
+|
+├── docker-compose.yml
 ```
