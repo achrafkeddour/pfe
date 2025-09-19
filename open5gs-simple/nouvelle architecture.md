@@ -1,3 +1,5 @@
+```bash
+
 open5gs/
 │
 ├── install/            # (binaires + configs déjà générés par ta compilation)
@@ -14,3 +16,5 @@ open5gs/
 │   ├── Dockerfile.pcf
 │   ├── Dockerfile.smf
 │   └── Dockerfile.upf
+
+```
