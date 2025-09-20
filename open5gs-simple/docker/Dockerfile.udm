@@ -1,0 +1,14 @@
+ENTRYPOINT ["/open5gs/bin/open5gs-udmd", "-c", "/open5gs/etc/open5gs/udm.yaml"]
+
+
+ENTRYPOINT ["/open5gs/bin/open5gs-udrd", "-c", "/open5gs/etc/open5gs/udr.yaml"]
+
+
+ENTRYPOINT ["/open5gs/bin/open5gs-pcfd", "-c", "/open5gs/etc/open5gs/pcf.yaml"]
+
+
+ENTRYPOINT ["/open5gs/bin/open5gs-smfd", "-c", "/open5gs/etc/open5gs/smf.yaml"]
+
+
+ENTRYPOINT ["/open5gs/bin/open5gs-upfd", "-c", "/open5gs/etc/open5gs/upf.yaml"]
+
