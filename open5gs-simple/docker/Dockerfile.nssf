@@ -1,0 +1,1 @@
+ENTRYPOINT ["/open5gs/bin/open5gs-nssfd", "-c", "/open5gs/etc/open5gs/nssf.yaml"]
