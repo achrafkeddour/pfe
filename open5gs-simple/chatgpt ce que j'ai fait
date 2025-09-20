@@ -1,0 +1,52 @@
+1. installation du open5gs
+sudo apt install git build-essential meson ninja-build cmake flex bison \
+libmnl-dev libyaml-dev libmicrohttpd-dev libcurl4-gnutls-dev libtins-dev \
+libidn11-dev libmongoc-dev libbson-dev libnghttp2-dev libtalloc-dev \
+libgcrypt20-dev libsctp1 libsctp-dev lksctp-tools
+2. clone
+cd ~
+git clone https://github.com/open5gs/open5gs
+cd open5gs
+3. Compiler
+meson build --prefix=`pwd`/install
+ninja -C build
+ninja -C build install
+
+4. configuration de 5GC
+utilise les deux chemins :
+cd open5gs/install/bin
+cd open5gs/install/etc (ici on trouve les fichiers de configuration)
+
+5. Créer le fichier run_5g.sh qui est : '
+#!/bin/bash
+# ~/open5gs/install/run_5g.sh
+# Lancer les services 5G Core Open5GS (sans SCP)
+
+# Démarrer NRF (toujours en premier)
+~/open5gs/install/bin/open5gs-nrfd -c ~/open5gs/install/etc/open5gs/nrf.yaml &
+
+# Démarrer NSSF (après NRF, avant AMF)
+~/open5gs/install/bin/open5gs-nssfd -c ~/open5gs/install/etc/open5gs/nssf.yaml &
+
+# Démarrer AMF
+~/open5gs/install/bin/open5gs-amfd -c ~/open5gs/install/etc/open5gs/amf.yaml &
+
+# Démarrer AUSF
+~/open5gs/install/bin/open5gs-ausfd -c ~/open5gs/install/etc/open5gs/ausf.yaml &
+
+# Démarrer UDM
+~/open5gs/install/bin/open5gs-udmd -c ~/open5gs/install/etc/open5gs/udm.yaml &
+
+# Démarrer UDR
+~/open5gs/install/bin/open5gs-udrd -c ~/open5gs/install/etc/open5gs/udr.yaml &
+
+# Démarrer PCF
+~/open5gs/install/bin/open5gs-pcfd -c ~/open5gs/install/etc/open5gs/pcf.yaml &
+
+# Démarrer SMF
+~/open5gs/install/bin/open5gs-smfd -c ~/open5gs/install/etc/open5gs/smf.yaml &
+
+# Démarrer UPF
+~/open5gs/install/bin/open5gs-upfd -c ~/open5gs/install/etc/open5gs/upf.yaml &'
+
+Puis, Exécuter :  ./run_5g.sh
