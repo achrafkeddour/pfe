@@ -1,0 +1,110 @@
+version: "3.8"
+
+services:
+  nrf:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nrf
+    container_name: open5gs-nrf
+    network_mode: "host"
+    volumes:
+      - ./install:/open5gs
+    restart: unless-stopped
+
+  nssf:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nssf
+    container_name: open5gs-nssf
+    network_mode: "host"
+    depends_on:
+      - nrf
+    volumes:
+      - ./install:/open5gs
+    restart: unless-stopped
+
+  amf:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.amf
+    container_name: open5gs-amf
+    network_mode: "host"
+    depends_on:
+      - nrf
+      - nssf
+    volumes:
+      - ./install:/open5gs
+    restart: unless-stopped
+
+  ausf:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.ausf
+    container_name: open5gs-ausf
+    network_mode: "host"
+    depends_on:
+      - nrf
+    volumes:
+      - ./install:/open5gs
+    restart: unless-stopped
+
+  udm:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.udm
+    container_name: open5gs-udm
+    network_mode: "host"
+    depends_on:
+      - nrf
+    volumes:
+      - ./install:/open5gs
+    restart: unless-stopped
+
+  udr:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.udr
+    container_name: open5gs-udr
+    network_mode: "host"
+    depends_on:
+      - udm
+    volumes:
+      - ./install:/open5gs
+    restart: unless-stopped
+
+  pcf:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.pcf
+    container_name: open5gs-pcf
+    network_mode: "host"
+    depends_on:
+      - nrf
+    volumes:
+      - ./install:/open5gs
+    restart: unless-stopped
+
+  smf:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.smf
+    container_name: open5gs-smf
+    network_mode: "host"
+    depends_on:
+      - nrf
+      - amf
+    volumes:
+      - ./install:/open5gs
+    restart: unless-stopped
+
+  upf:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.upf
+    container_name: open5gs-upf
+    network_mode: "host"
+    depends_on:
+      - smf
+    volumes:
+      - ./install:/open5gs
+    restart: unless-stopped
