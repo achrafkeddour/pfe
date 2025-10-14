@@ -5,7 +5,7 @@ docker run -it --entrypoint /bin/bash open5gs-amf-test
 apt update 
 apt install nano 
 
-n7ws win n7ot hada (amt.yaml) :
+n7ws win n7ot hada (amf.yaml) :
 "
 logger:
   file: /dev/stdout
