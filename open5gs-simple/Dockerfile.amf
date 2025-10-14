@@ -36,6 +36,10 @@ RUN apt-get update && apt-get install -y \
     libzstd1 \
     libbrotli1 \
     zlib1g \
+    nano \
+    iproute2 \
+    net-tools \
+    iputils-ping \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy entire install folder containing binaries, libs, and configs
@@ -43,6 +47,10 @@ COPY ./install /open5gs
 
 # Add Open5GS library path
 ENV LD_LIBRARY_PATH=/open5gs/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+
+# Create log directory and file for AMF
+RUN mkdir -p /open5gs/install/var/log/open5gs && \
+    touch /open5gs/install/var/log/open5gs/amf.log
 
 WORKDIR /open5gs
 
