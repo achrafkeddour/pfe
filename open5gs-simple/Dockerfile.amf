@@ -1,9 +1,9 @@
-FROM ubuntu:22.04
-
-# bach nverifihoum ga3 nroh lmachine ta3i wdir la commande :  ldd open5gs/install/bin/open5gs-amfd
+# dependencies bach nverifihoum ga3 nroh lmachine ta3i wdir la commande :  ldd open5gs/install/bin/open5gs-amfd
 # had la commnde tgouli cha houma les depencies ta3 koul bin (ytbdlou ga3 lazem nconfirmi biha m3ahoum fchatgpt)
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+FROM ubuntu:22.04
+
+RUN apt-get update && apt-get install -y \
     libsctp1 \
     lksctp-tools \
     libgnutls30 \
@@ -11,19 +11,43 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl3 \
     libidn2-0 \
     libyaml-0-2 \
-    libmongoc-1.0-0 \
-    libbson-1.0-0 \
     libmicrohttpd12 \
     libnghttp2-14 \
-    libcurl4 \
+    libcurl4-gnutls-dev \
     libtalloc2 \
     libmnl0 \
     librtmp1 \
     libssh-4 \
     libpsl5 \
-    && rm -rf /var/lib/apt/lists/*
+    libnettle8 \
+    libhogweed6 \
+    libgmp10 \
+    libtasn1-6 \
+    libunistring2 \
+    libp11-kit0 \
+    libldap-2.5-0 \
+    liblber-2.5-0 \
+    libsasl2-2 \
+    libkrb5-3 \
+    libk5crypto3 \
+    libcom-err2 \
+    libkrb5support0 \
+    libgssapi-krb5-2 \
+    libkeyutils1 \
+    libzstd1 \
+    libbrotlidec1 \
+    libbrotlicommon1 \
+    libz1 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Copy entire install folder containing binaries, libs, and configs
 COPY ./install /open5gs
+
+# Add Open5GS library path
+ENV LD_LIBRARY_PATH=/open5gs/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
+
 WORKDIR /open5gs
 
-ENTRYPOINT ["/open5gs/bin/open5gs-amfd", "-c", "/open5gs/etc/open5gs/amf.yaml"]
+ENTRYPOINT ["/open5gs/bin/open5gs-amfd"]
+CMD ["-c", "/open5gs/etc/open5gs/amf.yaml"]
+
