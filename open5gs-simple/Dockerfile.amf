@@ -1,21 +1,29 @@
-# Étape 1 : Image de base légère
 FROM ubuntu:22.04
 
-# Étape 2 : Installer les dépendances nécessaires à l’exécution Open5GS
-RUN apt-get update && apt-get install -y \
+# bach nverifihoum ga3 nroh lmachine ta3i wdir la commande :  ldd open5gs/install/bin/open5gs-amfd
+# had la commnde tgouli cha houma les depencies ta3 koul bin (ytbdlou ga3 lazem nconfirmi biha m3ahoum fchatgpt)
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
     libsctp1 \
+    lksctp-tools \
     libgnutls30 \
     libgcrypt20 \
     libssl3 \
-    libidn12 \
+    libidn2-0 \
     libyaml-0-2 \
     libmongoc-1.0-0 \
     libbson-1.0-0 \
     libmicrohttpd12 \
+    libnghttp2-14 \
+    libcurl4 \
+    libtalloc2 \
+    libmnl0 \
+    librtmp1 \
+    libssh-4 \
+    libpsl5 \
     && rm -rf /var/lib/apt/lists/*
 
-# Étape 3 : Copier les binaires déjà compilés (ton dossier ~/open5gs/install/)
 COPY ./install /open5gs
+WORKDIR /open5gs
 
-# Étape 4 : Définir le point d’entrée pour l’AMF
 ENTRYPOINT ["/open5gs/bin/open5gs-amfd", "-c", "/open5gs/etc/open5gs/amf.yaml"]
