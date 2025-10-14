@@ -26,7 +26,6 @@ RUN apt-get update && apt-get install -y \
     libunistring2 \
     libp11-kit0 \
     libldap-2.5-0 \
-    liblber-2.5-0 \
     libsasl2-2 \
     libkrb5-3 \
     libk5crypto3 \
@@ -35,9 +34,8 @@ RUN apt-get update && apt-get install -y \
     libgssapi-krb5-2 \
     libkeyutils1 \
     libzstd1 \
-    libbrotlidec1 \
-    libbrotlicommon1 \
-    libz1 \
+    libbrotli1 \
+    zlib1g \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy entire install folder containing binaries, libs, and configs
@@ -50,4 +48,3 @@ WORKDIR /open5gs
 
 ENTRYPOINT ["/open5gs/bin/open5gs-amfd"]
 CMD ["-c", "/open5gs/etc/open5gs/amf.yaml"]
-
