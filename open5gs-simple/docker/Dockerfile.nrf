@@ -1,8 +1,11 @@
-# dependencies bach nverifihoum ga3 nroh lmachine ta3i wdir la commande :  ldd open5gs/install/bin/open5gs-nrfd
-# had la commnde tgouli cha houma les depencies ta3 koul bin (ytbdlou ga3 lazem nconfirmi biha m3ahoum fchatgpt)
+# ~/open5gs$ docker build -t open5gs-nrf-test -f Dockerfile.nrf .
+# ~/open5gs$ docker run -it open5gs-nrf-test
 
+
+# Base image
 FROM ubuntu:22.04
 
+# Install runtime dependencies based on ldd output
 RUN apt-get update && apt-get install -y \
     libsctp1 \
     lksctp-tools \
@@ -25,7 +28,6 @@ RUN apt-get update && apt-get install -y \
     libunistring2 \
     libp11-kit0 \
     libldap-2.5-0 \
-    liblber-2.5-0 \
     libsasl2-2 \
     libkrb5-3 \
     libk5crypto3 \
@@ -34,19 +36,28 @@ RUN apt-get update && apt-get install -y \
     libgssapi-krb5-2 \
     libkeyutils1 \
     libzstd1 \
-    libbrotlidec1 \
-    libbrotlicommon1 \
-    libz1 \
+    libbrotli1 \
+    zlib1g \
     libffi8 \
+    libz1 \
+    nano \
+    iproute2 \
+    net-tools \
+    iputils-ping \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Copy entire install folder containing binaries, libs, and configs
+# Copy full install directory (binaries, libs, configs)
 COPY ./install /open5gs
 
 # Add Open5GS library path
 ENV LD_LIBRARY_PATH=/open5gs/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
+# Create log directory and file for NRF
+RUN mkdir -p /open5gs/install/var/log/open5gs && \
+    touch /open5gs/install/var/log/open5gs/nrf.log
+
 WORKDIR /open5gs
 
+# Entry point for the NRF service
 ENTRYPOINT ["/open5gs/bin/open5gs-nrfd"]
 CMD ["-c", "/open5gs/etc/open5gs/nrf.yaml"]
