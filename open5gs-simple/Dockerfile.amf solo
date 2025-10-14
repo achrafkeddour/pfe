@@ -1,3 +1,10 @@
+n7ws 3la files .yaml wnbedel
+
+path: /open5gs/install/var/log/open5gs/amf.log
+instead of /home/user/open5gs/install/var/log/open5gs/amf.log
+
+
+
 docker build -t open5gs-amf-test -f Dockerfile.amf .
 
 docker run -it --entrypoint /bin/bash open5gs-amf-test
