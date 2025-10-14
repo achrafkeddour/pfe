@@ -1,14 +1,52 @@
-ENTRYPOINT ["/open5gs/bin/open5gs-udmd", "-c", "/open5gs/etc/open5gs/udm.yaml"]
+# dependencies bach nverifihoum ga3 nroh lmachine ta3i wdir la commande :  ldd open5gs/install/bin/open5gs-udmd
+# had la commnde tgouli cha houma les depencies ta3 koul bin (ytbdlou ga3 lazem nconfirmi biha m3ahoum fchatgpt)
 
+FROM ubuntu:22.04
 
-ENTRYPOINT ["/open5gs/bin/open5gs-udrd", "-c", "/open5gs/etc/open5gs/udr.yaml"]
+RUN apt-get update && apt-get install -y \
+    lksctp-tools \
+    libgnutls30 \
+    libgcrypt20 \
+    libssl3 \
+    libidn2-0 \
+    libyaml-0-2 \
+    libmicrohttpd12 \
+    libnghttp2-14 \
+    libcurl4-gnutls-dev \
+    libtalloc2 \
+    libmnl0 \
+    librtmp1 \
+    libssh-4 \
+    libpsl5 \
+    libnettle8 \
+    libhogweed6 \
+    libgmp10 \
+    libtasn1-6 \
+    libunistring2 \
+    libp11-kit0 \
+    libldap-2.5-0 \
+    liblber-2.5-0 \
+    libsasl2-2 \
+    libkrb5-3 \
+    libk5crypto3 \
+    libcom-err2 \
+    libkrb5support0 \
+    libgssapi-krb5-2 \
+    libkeyutils1 \
+    libzstd1 \
+    libbrotlidec1 \
+    libbrotlicommon1 \
+    libz1 \
+    libffi8 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Copy compiled Open5GS binaries, libs, and configuration
+COPY ./install /open5gs
 
-ENTRYPOINT ["/open5gs/bin/open5gs-pcfd", "-c", "/open5gs/etc/open5gs/pcf.yaml"]
+# Add Open5GS library path
+ENV LD_LIBRARY_PATH=/open5gs/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH
 
+WORKDIR /open5gs
 
-ENTRYPOINT ["/open5gs/bin/open5gs-smfd", "-c", "/open5gs/etc/open5gs/smf.yaml"]
-
-
-ENTRYPOINT ["/open5gs/bin/open5gs-upfd", "-c", "/open5gs/etc/open5gs/upf.yaml"]
-
+ENTRYPOINT ["/open5gs/bin/open5gs-udmd"]
+CMD ["-c", "/open5gs/etc/open5gs/udm.yaml"]
