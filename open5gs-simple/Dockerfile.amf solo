@@ -1,0 +1,15 @@
+docker build -t open5gs-amf-test -f Dockerfile.amf .
+
+docker run -it --entrypoint /bin/bash open5gs-amf-test
+
+apt update 
+apt install nano 
+
+n7ws win n7ot hada (amt.yaml) :
+"
+logger:
+  file: /dev/stdout
+"
+
+ndir la commande :
+/open5gs/bin/open5gs-amfd -c /open5gs/etc/open5gs/amf.yaml
