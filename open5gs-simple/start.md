@@ -118,3 +118,10 @@ As a result of (```ip a``` in a third terminal) , you must find a new interface 
 ```bash
 pkill -9 -f open5gs-
 ```
+
+
+## pour passer vers dockerfile
+n7ws 3la files .yaml wnbedel
+
+path: /open5gs/install/var/log/open5gs/amf.log
+instead of /home/user/open5gs/install/var/log/open5gs/amf.log
