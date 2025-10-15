@@ -94,3 +94,8 @@ password: free5gc
 ```
 
 
+
+# put logs in one file 
+```
+free5gc-compose$ docker compose up 2>&1 | tee docker_output.log
+```
