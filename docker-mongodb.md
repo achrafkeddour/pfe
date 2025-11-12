@@ -1,3 +1,12 @@
+# remplir mongodb user (docker-compose version)
+
+```
+use free5gc 
+
+docker exec -it mongodb mongo
+```
+
+```
 // 1. Authentication data
 db.getCollection("subscriptionData.authenticationData.authenticationSubscription").insertOne({
   "ueId": "imsi-208930000000001",
@@ -76,3 +85,28 @@ db.getCollection("subscriptionData.provisionedData.smfSelectionSubscriptionData"
     "01112233": {"dnnInfos": [{"dnn": "internet"}]}
   }
 })
+```
+
+
+
+## execute 
+```
+docker exec -it ueransim ./nr-ue -c ./config/uecfg.yaml
+```
+
+## check
+```
+# Check the network interfaces
+ip addr show uesimtun0
+ip addr show uesimtun1
+
+# Test connectivity through each interface
+ping -I uesimtun0 -c 4 8.8.8.8
+ping -I uesimtun1 -c 4 8.8.8.8
+
+# Test DNS resolution and web access
+ping -I uesimtun0 -c 4 google.com
+
+# You can also test with curl
+curl --interface uesimtun0 http://www.google.com
+```
