@@ -1,11 +1,14 @@
 import subprocess
 from flask import Flask, Response
+import threading
 
 app = Flask(__name__)
 
-def stream_logs():
+log_buffer = []       # <-- stocke tout l’historique des logs
+listeners = []        # <-- connexions actives SSE
 
-    # Lancement EXACT de ta commande Odoo dans le venv
+def stream_process():
+    """Lance Odoo et capture les logs en continu"""
     process = subprocess.Popen(
         [
             "./odoo/odoo-bin",
@@ -16,24 +19,49 @@ def stream_logs():
         stderr=subprocess.STDOUT,
         text=True,
         bufsize=1,
-        cwd="/home/erp/odoo-dev"   # <-- IMPORTANT : dossier où se trouve odoo-bin
+        cwd="/home/erp/odoo-dev"
     )
 
     for line in process.stdout:
-        yield f"data: {line.rstrip()}\n\n"
+        clean = line.rstrip()
+
+        # Ajouter dans le buffer
+        log_buffer.append(clean)
+
+        # Envoyer à tous les clients connectés
+        for queue in list(listeners):
+            queue.append(clean)
+
+# Lancer odoo dans un thread séparé
+threading.Thread(target=stream_process, daemon=True).start()
 
 @app.route("/logs")
 def logs():
-    return Response(stream_logs(), mimetype="text/event-stream")
+    def event_stream():
+        # 1️⃣ envoyer tout l'historique
+        for old in log_buffer:
+            yield f"data: {old}\n\n"
+
+        # 2️⃣ écouter les nouvelles lignes
+        queue = []
+        listeners.append(queue)
+
+        while True:
+            if queue:
+                item = queue.pop(0)
+                yield f"data: {item}\n\n"
+
+    return Response(event_stream(), mimetype="text/event-stream")
 
 @app.route("/")
 def home():
     return """
-    <h2>Live Odoo Logs</h2>
-    <pre id="log"></pre>
+    <h2>Live Odoo Logs (with history)</h2>
+    <pre id="log" style="white-space: pre-wrap;"></pre>
     <script>
         const logElement = document.getElementById("log");
         const source = new EventSource("/logs");
+
         source.onmessage = function(event) {
             logElement.textContent += event.data + "\\n";
             window.scrollTo(0, document.body.scrollHeight);
