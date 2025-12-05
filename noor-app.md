@@ -1,4 +1,5 @@
-# 1 install docker (version 29)
+# ubuntu 22.04
+##  install docker (version 29)
 ```
 sudo apt update
 sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
@@ -40,7 +41,18 @@ sudo apt-mark hold docker-ce docker-ce-cli containerd.io
 
 
 
-
+# ubuntu 18.04
+```
+sudo mkdir -p /etc/apt/keyrings
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl software-properties-common gnupg lsb-release -y
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+sudo apt install docker-ce=5:20.10.16~3-0~ubuntu-bionic docker-ce-cli=5:20.10.16~3-0~ubuntu-bionic containerd.io -y
+sudo systemctl start docker
+sudo systemctl enable docker
+```
 
 
 # 2 install and run rancher
