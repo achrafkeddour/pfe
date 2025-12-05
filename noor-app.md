@@ -1,5 +1,5 @@
 # ubuntu 22.04
-##  install docker (version 29)
+### install docker (version 29)
 ```
 sudo apt update
 sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
@@ -11,7 +11,7 @@ sudo usermod -aG docker $USER
 newgrp docker
 ```
 
-# install version 20.10.16
+### install version 20.10.16
 ```
 sudo apt update
 
