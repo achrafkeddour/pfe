@@ -34,6 +34,34 @@ https://repo.mongodb.org/apt/ubuntu $(lsb_release -sc)/mongodb-org/7.0 multivers
   sudo systemctl status mongod
 ```
 
+## 4.2 second solution for mongodb
+```bash
+# Create a temporary directory
+mkdir ~/mongodb-packages
+cd ~/mongodb-packages
+
+# Download with retry (-c continues partial downloads, --tries=10 retries)
+wget -c --tries=10 https://repo.mongodb.org/apt/ubuntu/dists/jammy/mongodb-org/7.0/multiverse/binary-amd64/mongodb-org-shell_7.0.26_amd64.deb
+wget -c --tries=10 https://repo.mongodb.org/apt/ubuntu/dists/jammy/mongodb-org/7.0/multiverse/binary-amd64/mongodb-org-server_7.0.26_amd64.deb
+wget -c --tries=10 https://repo.mongodb.org/apt/ubuntu/dists/jammy/mongodb-org/7.0/multiverse/binary-amd64/mongodb-org-mongos_7.0.26_amd64.deb
+wget -c --tries=10 https://repo.mongodb.org/apt/ubuntu/dists/jammy/mongodb-org/7.0/multiverse/binary-amd64/mongodb-database-tools_100.13.0_amd64.deb
+wget -c --tries=10 https://repo.mongodb.org/apt/ubuntu/dists/jammy/mongodb-org/7.0/multiverse/binary-amd64/mongodb-mongosh_2.5.10_amd64.deb
+wget -c --tries=10 https://repo.mongodb.org/apt/ubuntu/dists/jammy/mongodb-org/7.0/multiverse/binary-amd64/mongodb-org-database-tools-extra_7.0.26_amd64.deb
+wget -c --tries=10 https://repo.mongodb.org/apt/ubuntu/dists/jammy/mongodb-org/7.0/multiverse/binary-amd64/mongodb-org-database_7.0.26_amd64.deb
+wget -c --tries=10 https://repo.mongodb.org/apt/ubuntu/dists/jammy/mongodb-org/7.0/multiverse/binary-amd64/mongodb-org-tools_7.0.26_amd64.deb
+wget -c --tries=10 https://repo.mongodb.org/apt/ubuntu/dists/jammy/mongodb-org/7.0/multiverse/binary-amd64/mongodb-org_7.0.26_amd64.deb
+
+# Install all packages at once
+sudo dpkg -i *.deb
+
+# Fix any dependency issues
+sudo apt install -f
+
+# Wait 30-60 minutes and try again
+sudo apt update
+sudo apt install -y mongodb-org
+```
+
 
 ## 5. configuration de 5GC
 - utilise les deux chemins :
